@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>App</title>
+
+    <style>
+        body {
+            background-color: rgb(255, 68, 87);
+
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        div.main {
+
+            background-color: #1A1A1D;
+            color: rgb(255, 68, 87)
+        }
+
+        .image {
+            width: 100%;
+            height: 100%;
+
+
+        }
+
+        .picture {
+
+            height: fit-content;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+
+        }
+
+        h1.first {
+            text-align: center;
+            /*background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);*/
+            background-color: #1A1A1D;
+            color: rgb(255, 68, 87);
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .mainHead {
+
+            padding: 20px;
+            text-align: center;
+
+
+        }
+
+        .textar {
+            margin-top: 1em;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+
+        }
+
+        .chores {
+
+            padding: 4px;
+
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+            -webkit-transition: all 1s ease;
+
+
+
+
+        }
+
+        .chores:hover {
+
+            padding: 14px;
+            padding-top: 20px;
+            background-color: blanchedalmond;
+
+
+            filter: grayscale(0%);
+            filter: gray;
+            -webkit-filter: grayscale(0%);
+            filter: none;
+            transition: 1s ease;
+
+
+        }
+
+        .firform {
+            margin: 20px;
+            margin-top: 30px;
+            font-weight: bold;
+
+
+        }
+
+        .secform{
+            margin:20px;
+            
+
+        }
+
+        .last15{
+           
+            border: 1px solid rgb(255, 68, 87);
+            color: rgb(255, 68, 87);
+            
+        }
+
+        .last15:hover{
+            background-color:rgb(255, 68, 87);
+            color: #1A1A1D;
+        }
+    </style>
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+    <div>
+        <h1 class="first">
+            MY BALANCE SHEET
+        </h1>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 picture">
+                <img src="{{url_for('static', filename='left.bmp')}}" alt="dd" class=" image-rounded image">
+            </div>
+
+            <div class="col-8 main ">
+                <br>
+                <div><a href="{{url_for('display2')}}" class="btn  btn-block last15" role="button" >Display Monthly Balanace</a> </div>
+                <br>
+                <div><a href="{{url_for('display')}}" class="btn  btn-block last15" role="button" >Display Last 15 Entries</a> </div>
+                <div class="chores firform">
+                    <form action="{{url_for('Addchore')}}" method="POST">
+                        <label for="work">Add Work Done </label>
+                        <input type="text" name="work" id="work" class="form-control" placeholder="Work Done"><br>
+
+                        <label for="earned"> Enter Money Earned </label>
+                        <input type="number" name="earned" id="earned" class="form-control"
+                            placeholder="Money Earned"><br>
+                        <input type="submit" value="Submit" class="btn btn-danger">
+
+                    </form>
+                </div>
+
+
+                <div class="secform chores ">
+                    <form action="{{url_for('Addstory')}}" method="POST">
+
+                        <label for="subject">
+                            <input type="text" name="title" id="title" placeholder="Title"
+                                class="form-control"></label>
+
+                        <div class="textar">
+                            <textarea rows="40" cols="160" id="text" name="text" class="form-control"></textarea>
+                        </div>
+                        <div id="countWord"><br>Words: 0</div>
+                        <label for="count"></label>
+                        <input type="hidden" id="count" name="count">
+
+                        <input type="submit" value="Submit" class="btn btn-primary">
+
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-2 picture">
+                <img src="{{url_for('static', filename='right.bmp')}}" alt="dd" class=" image-rounded image">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function count_word(val) {
+            var wom = val.match(/\S+/g);
+            return {
+                words: wom ? wom.length : 0
+            };
+        }
+
+        var textContent = document.getElementById("text");
+        var showWordCount = document.getElementById("countWord");
+        var showWordCount2 = document.getElementById("count");
+        textContent.addEventListener("input", function () {
+            var v = count_word(this.value);
+            showWordCount.innerHTML = (
+                "<br>Words: " + v.words
+            );
+            showWordCount2.value = v.words;
+        }, false);
+    </script>
+
+
+
+</body>
+
+</html>
